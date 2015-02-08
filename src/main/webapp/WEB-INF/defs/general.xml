@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+       
+<tiles-definitions>
+	<definition name="index" template="/WEB-INF/layout/index-layout.jsp">
+		<put-attribute name="title" value="Fugiczek Personal WebSite" />
+		<put-attribute name="body" value="/WEB-INF/jsp/index.jsp" />
+		<put-attribute name="current" value="index" />
+	</definition>
+	
+	<definition name="blog" template="/WEB-INF/layout/blog-layout.jsp">
+		<put-attribute name="title" value="Fugiczek Blog" />
+		<put-attribute name="body" value="/WEB-INF/jsp/blog.jsp" />
+		<put-attribute name="current" value="blog" />
+	</definition>
+	
+	<definition name="login" template="/WEB-INF/jsp/login.jsp">
+		<put-attribute name="title" value="Login" />
+	</definition>
+	
+	<definition name="administration-layout" template="/WEB-INF/layout/administration-layout.jsp" />
+	
+	<definition name="administration" extends="administration-layout">
+		<put-attribute name="title" value="Administration" />
+		<put-attribute name="body" value="/WEB-INF/jsp/administration.jsp" />
+		<put-attribute name="current" value="administration" />
+	</definition>
+</tiles-definitions>
