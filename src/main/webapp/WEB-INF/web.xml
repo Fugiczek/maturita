@@ -24,6 +24,10 @@
 		<url-pattern>*.png</url-pattern>
 	</servlet-mapping>
 
+	<error-page>
+		<location>/error</location>
+	</error-page>
+
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
