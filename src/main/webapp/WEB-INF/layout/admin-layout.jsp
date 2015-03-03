@@ -7,6 +7,8 @@
 	prefix="tilesx"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="security"%>
+
+<tilesx:useAttribute name="current" />
 	
 <!DOCTYPE html>
 <html lang="en">
@@ -55,8 +57,6 @@
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#">Dashboard</a></li>
-					<li><a href="#">Settings</a></li>
 					<li><a href='<spring:url value="/logout" />'>Logout</a></li>
 				</ul>
 				<form class="navbar-form navbar-right">
@@ -70,12 +70,11 @@
 		<div class="row">
 			<div class="col-sm-3 col-md-2 sidebar">
 				<ul class="nav nav-sidebar">
-					<li class="active"><a href="#">Users<span
-							class="sr-only">(current)</span></a></li>
+					<li class="${current == 'admin-users' ? 'active' : '' }"><a href="<spring:url value="/admin" />">Users</a></li>
+					<li class="${current == 'admin-blog' ? 'active' : '' }"><a href="<spring:url value="/admin/blog" />">Blog</a></li>
 				</ul>
 			</div>
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-				<h1 class="page-header">Dashboard</h1>
 				<tiles:insertAttribute name="body" />
 			</div>
 		</div>

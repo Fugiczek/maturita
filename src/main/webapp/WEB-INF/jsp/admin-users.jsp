@@ -3,7 +3,9 @@
 
 <%@ include file="../layout/taglib.jsp" %>
 
-<h2 class="sub-header">Users</h2>
+<h1 class="page-header">Users</h1>
+
+<h2 class="sub-header">List of Users</h2>
 
 <div class="table-responsive">
 	<table class="table table-striped">

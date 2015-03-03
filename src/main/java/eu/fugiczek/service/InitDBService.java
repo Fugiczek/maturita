@@ -1,6 +1,7 @@
 package eu.fugiczek.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -10,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import eu.fugiczek.entity.BlogPost;
 import eu.fugiczek.entity.Role;
 import eu.fugiczek.entity.User;
+import eu.fugiczek.repository.BlogPostRepository;
 import eu.fugiczek.repository.RoleRepository;
 import eu.fugiczek.repository.UserRepository;
 
@@ -24,6 +27,9 @@ public class InitDBService {
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private BlogPostRepository blogPostRepository;
 	
 	@PostConstruct
 	public void init() {
@@ -59,6 +65,18 @@ public class InitDBService {
 		roles.add(roleUser);
 		userUser.setRoles(roles);
 		userRepository.save(userUser);
+		
+		BlogPost blogPost;
+		
+		for(int i = 0; i < 21; i++) {
+			blogPost = new BlogPost();
+			blogPost.setTitle("Zkouska clanku " + i);
+			blogPost.setPublishedDate(new Date(System.currentTimeMillis() + i * 10000));
+			blogPost.setText("Bla bla bla " + i);
+			blogPost.setUser(userAdmin);
+			blogPostRepository.save(blogPost);
+		}
+		
 	}
 	
 }
