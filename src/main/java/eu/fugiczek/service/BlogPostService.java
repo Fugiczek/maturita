@@ -23,5 +23,9 @@ public class BlogPostService {
 	public long count() {
 		return blogPostRepository.count();
 	}
+
+	public void delete(int id) {
+		blogPostRepository.delete(id);
+	}
 	
 }

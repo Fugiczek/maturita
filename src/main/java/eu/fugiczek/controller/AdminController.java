@@ -19,10 +19,16 @@ public class AdminController {
 	@Autowired
 	private BlogPostService blogPostService;
 	
-	@RequestMapping
+	@RequestMapping(value={"", "/users"})
 	public String users(Model model) {
 		model.addAttribute("users", userService.findAll());
 		return "admin-users";
+	}
+	
+	@RequestMapping("/users/remove/{id:[\\d]+}")
+	public String removeUsers(@PathVariable int id) {
+		userService.remove(id);
+		return "redirect:/admin/users";
 	}
 	
 	@RequestMapping("/blog")
@@ -37,6 +43,12 @@ public class AdminController {
 		model.addAttribute("posts", blogPostService.findAll(page - 1));
 		model.addAttribute("count", blogPostService.count());
 		return "admin-blog";
+	}
+	
+	@RequestMapping("/blog/remove/{id:[\\d]+}")
+	public String removeBlogPost(@PathVariable int id) {
+		blogPostService.delete(id);
+		return "redirect:/admin/blog";
 	}
 	
 }
