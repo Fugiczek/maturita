@@ -35,6 +35,7 @@ public class AdminController {
 	public String blog(Model model) {
 		model.addAttribute("posts", blogPostService.findAll(0));
 		model.addAttribute("count", blogPostService.count());
+		model.addAttribute("currentPage", 1);
 		return "admin-blog";
 	}
 	
@@ -42,6 +43,7 @@ public class AdminController {
 	public String blogPage(@PathVariable int page, Model model) {
 		model.addAttribute("posts", blogPostService.findAll(page - 1));
 		model.addAttribute("count", blogPostService.count());
+		model.addAttribute("currentPage", page);
 		return "admin-blog";
 	}
 	
