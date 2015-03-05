@@ -22,7 +22,10 @@
 	<definition name="blog" template="/WEB-INF/layout/blog-layout.jsp">
 		<put-attribute name="title" value="Fugiczek Blog" />
 		<put-attribute name="body" value="/WEB-INF/jsp/blog.jsp" />
-		<put-attribute name="current" value="blog" />
+	</definition>
+	
+	<definition name="blog-post" extends="blog">
+		<put-attribute name="body" value="/WEB-INF/jsp/blog-post.jsp" />
 	</definition>
 	
 	<definition name="login" template="/WEB-INF/jsp/login.jsp">

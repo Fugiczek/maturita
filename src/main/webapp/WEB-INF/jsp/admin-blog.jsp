@@ -19,7 +19,9 @@
 		<tbody>
 			<c:forEach items="${posts}" var="post">
 				<tr>
-					<td><c:out value="${post.title}" /></td>
+					<td><a href='<spring:url value="/blog/show/${post.id}" />'>
+							<c:out value="${post.title}" />
+					</a></td>
 					<td><c:out value="${post.publishedDate}" /></td>
 					<td><a
 						href='<spring:url value="/admin/blog/remove/${post.id}" />'
@@ -28,28 +30,30 @@
 			</c:forEach>
 		</tbody>
 	</table>
-	<ul class="pagination">		
+	<ul class="pagination">
 		<%
 			long count = (long) request.getAttribute("count");
 			int currentPage = (int) request.getAttribute("currentPage");
 
-			if(currentPage == 1) {
+			if (currentPage == 1) {
 				out.println("<li><a class=\"disable\">&laquo;</a></li>");
 			} else {
-				out.println("<li><a href=\"/admin/blog/" + (currentPage - 1) + "\">&laquo;</a></li>");
+				out.println("<li><a href=\"/admin/blog/" + (currentPage - 1)
+						+ "\">&laquo;</a></li>");
 			}
-			
+
 			for (int i = 1; i <= Math.ceil(count / 10.0); i++) {
 				out.println("<li"
 						+ ((i == currentPage) ? " class=\"active\"" : "")
 						+ "><a href=\"/admin/blog/" + i + "\">" + i
 						+ "</a></li>");
 			}
-			
-			if(currentPage == Math.ceil(count / 10.0)) {
+
+			if (currentPage == Math.ceil(count / 10.0)) {
 				out.println("<li><a class=\"disable\">&raquo;</a></li>");
 			} else {
-				out.println("<li><a href=\"/admin/blog/" + (currentPage + 1) + "\">&raquo;</a></li>");
+				out.println("<li><a href=\"/admin/blog/" + (currentPage + 1)
+						+ "\">&raquo;</a></li>");
 			}
 		%>
 	</ul>

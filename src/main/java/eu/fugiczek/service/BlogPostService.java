@@ -27,5 +27,9 @@ public class BlogPostService {
 	public void delete(int id) {
 		blogPostRepository.delete(id);
 	}
+
+	public BlogPost findOne(int id) {
+		return blogPostRepository.findOne(id);
+	}
 	
 }
