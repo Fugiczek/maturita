@@ -32,6 +32,10 @@
 		<put-attribute name="title" value="Login" />
 	</definition>
 	
+	<definition name="register" template="/WEB-INF/jsp/register.jsp">
+		<put-attribute name="title" value="Register" />
+	</definition>
+	
 	<definition name="admin-layout" template="/WEB-INF/layout/admin-layout.jsp">
 			<put-attribute name="title" value="Administration" />
 	</definition>

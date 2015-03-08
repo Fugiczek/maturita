@@ -20,27 +20,17 @@
 		</div>
 	</c:forEach>
 
-	<ul class="pagination">
+	<ul class="pager">
 		<%
 			long count = (long) request.getAttribute("count");
 			int currentPage = (int) request.getAttribute("currentPage");
 
-			if (currentPage == 1) {
-				out.println("<li><a class=\"disable\">&laquo;</a></li>");
-			} else {
+			if (currentPage != 1) {
 				out.println("<li><a href=\"/blog/" + (currentPage - 1)
 						+ "\">&laquo;</a></li>");
 			}
 
-			for (int i = 1; i <= Math.ceil(count / 10.0); i++) {
-				out.println("<li"
-						+ ((i == currentPage) ? " class=\"active\"" : "")
-						+ "><a href=\"/blog/" + i + "\">" + i + "</a></li>");
-			}
-
-			if (currentPage == Math.ceil(count / 10.0)) {
-				out.println("<li><a class=\"disable\">&raquo;</a></li>");
-			} else {
+			if (currentPage != Math.ceil(count / 10.0)) {
 				out.println("<li><a href=\"/blog/" + (currentPage + 1)
 						+ "\">&raquo;</a></li>");
 			}

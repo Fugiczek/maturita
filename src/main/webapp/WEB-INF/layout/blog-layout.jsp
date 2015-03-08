@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+<%@ include file="../layout/taglib.jsp" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles-extras"
 	prefix="tilesx"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
@@ -40,6 +40,13 @@
 				<a class="blog-nav-item active" href="<spring:url value="/blog" />">Home</a>
 				<a class="blog-nav-item" href="#">O blogu</a>
 				<a class="blog-nav-item" href="<spring:url value="/" />">Hlavni sranka</a>
+				<security:authorize access="! isAuthenticated()">
+					<a class="blog-nav-item" href="<spring:url value="/login" />">Login</a>
+					<a class="blog-nav-item" href="<spring:url value="/register" />">Register</a>
+				</security:authorize>
+				<security:authorize access="isAuthenticated()">
+					<a class="blog-nav-item" href="<spring:url value="/logout" />">Logout</a>
+				</security:authorize>
 			</nav>
 		</div>
 	</div>
@@ -53,6 +60,10 @@
 			<p class="lead blog-description">Nejaky psani od demonu a
 				parku...</p>
 		</div>
+
+		<c:if test="${success eq true}">
+			<div class="alert alert-success">Registration successful! You can login now.</div>
+		</c:if>
 
 		<div class="row">
 			<tiles:insertAttribute name="body" />

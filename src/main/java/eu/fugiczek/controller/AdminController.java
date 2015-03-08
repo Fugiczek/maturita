@@ -27,7 +27,7 @@ public class AdminController {
 	
 	@RequestMapping("/users/remove/{id:[\\d]+}")
 	public String removeUsers(@PathVariable int id) {
-		userService.remove(id);
+		userService.delete(id);
 		return "redirect:/admin/users";
 	}
 	

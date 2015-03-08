@@ -11,7 +11,7 @@
 	<http use-expressions="true">
 		<intercept-url pattern="/admin**" access="hasRole('ADMIN')" />
 		<intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />
-		<form-login login-page="/login" />
+		<form-login login-page="/login" default-target-url="/blog" />
 		<logout logout-url="/logout" />
 	</http>
 
