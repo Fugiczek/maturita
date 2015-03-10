@@ -1,7 +1,6 @@
 package eu.fugiczek.service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -71,8 +70,7 @@ public class InitDBService {
 		for(int i = 0; i < 21; i++) {
 			blogPost = new BlogPost();
 			blogPost.setTitle("Zkouska clanku " + i);
-			blogPost.setPublishedDate(new Date(System.currentTimeMillis() + i * 10000));
-			blogPost.setText("Bla bla bla " + i);
+			blogPost.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. " + i);
 			blogPost.setUser(userAdmin);
 			blogPostRepository.save(blogPost);
 		}

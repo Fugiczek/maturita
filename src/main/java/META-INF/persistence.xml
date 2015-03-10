@@ -5,5 +5,6 @@
 		<class>eu.fugiczek.entity.BlogPost</class>
 		<class>eu.fugiczek.entity.Role</class>
 		<class>eu.fugiczek.entity.Comment</class>
+		<class>eu.fugiczek.util.LocalDateTimeConverter</class>
 	</persistence-unit>
 </persistence>

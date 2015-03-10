@@ -1,6 +1,6 @@
 package eu.fugiczek.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Type;
 
@@ -22,11 +24,13 @@ public class BlogPost {
 	@GeneratedValue
 	private Integer id;
 	
+	@Size(min=1, message="Title must be at least 1 character!")
 	@Column(length = 1000)
 	private String title;
 	
-	private Date publishedDate;
+	private LocalDateTime publishedDate;
 	
+	@Size(min=50, message="Text must be at least 50 characters!")
 	@Lob
 	@Type(type = "org.hibernate.type.StringClobType")
 	@Column(length = Integer.MAX_VALUE)
@@ -39,6 +43,11 @@ public class BlogPost {
 	@OneToMany(mappedBy = "blogPost", cascade = CascadeType.REMOVE)
 	private List<Comment> comments;
 
+	@PrePersist
+	void publishedDate() {
+		publishedDate = LocalDateTime.now();
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -55,12 +64,8 @@ public class BlogPost {
 		this.title = title;
 	}
 
-	public Date getPublishedDate() {
+	public LocalDateTime getPublishedDate() {
 		return publishedDate;
-	}
-
-	public void setPublishedDate(Date publishedDate) {
-		this.publishedDate = publishedDate;
 	}
 
 	public String getText() {
@@ -86,6 +91,5 @@ public class BlogPost {
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
-	
 	
 }
