@@ -1,0 +1,29 @@
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="page">
+
+<head th:replace="admin/fragments/headTag :: headTag"></head>
+
+<body>
+	<div th:include="admin/fragments/bodyHeader :: bodyHeader"
+		th:remove="tag"></div>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-3 col-md-2 sidebar">
+				<ul class="nav nav-sidebar">
+					<li
+						th:class="${(#httpServletRequest.requestURL.toString().contains('users')) ? 'active' : ''}"><a
+						th:href="@{/admin/users}">Users</a></li>
+					<li
+						th:class="${(#httpServletRequest.requestURL.toString().contains('blog')) ? 'active' : ''}"><a
+						th:href="@{/admin/blog}">Blog</a></li>
+				</ul>
+			</div>
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+				<div th:include="this :: content"></div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>

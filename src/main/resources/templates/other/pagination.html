@@ -1,0 +1,42 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<div th:fragment="pagination">
+	<ul class='pagination'>
+		<li th:class="${page.hasPreviousPage()}? '' : 'disabled'"><span
+			th:if="${not page.hasPreviousPage()}">«</span> <a
+			th:if="${page.hasPreviousPage()}"
+			th:href="@{${page.url} + '/' + ${page.number - 1}}"
+			title="Go to previous page">«</a></li>
+
+		<li th:each="item : ${page.items}"
+			th:class="${item.current}? 'active' : ''"><span
+			th:if="${item.current}" th:text="${item.number}"></span> <a
+			th:if="${not item.current}"
+			th:href="@{${page.url} + '/' + ${item.number}}"><span
+				th:text="${item.number}"></span></a></li>
+
+		<li th:class="${page.hasNextPage()}? '' : 'disabled'"><span
+			th:if="${not page.hasNextPage()}">»</span> <a
+			th:if="${page.hasNextPage()}"
+			th:href="@{${page.url} + '/' + ${page.number + 1}}"
+			title="Go to next page">»</a></li>
+	</ul>
+</div>
+
+<div th:fragment="pagination_blog">
+	<ul class='pager'>
+		<li th:class="${page.hasPreviousPage()}? '' : 'disabled'"><span
+			th:if="${not page.hasPreviousPage()}">«</span> <a
+			th:if="${page.hasPreviousPage()}"
+			th:href="@{${page.url} + '/' + ${page.number - 1}}"
+			title="Go to previous page">«</a></li>
+
+		<li th:class="${page.hasNextPage()}? '' : 'disabled'"><span
+			th:if="${not page.hasNextPage()}">»</span> <a
+			th:if="${page.hasNextPage()}"
+			th:href="@{${page.url} + '/' + ${page.number + 1}}"
+			title="Go to next page">»</a></li>
+	</ul>
+</div>
+
+</html>

@@ -1,0 +1,23 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	lang="en">
+
+<div th:fragment="bodyHeader">
+	<div class="blog-masthead">
+		<div class="container">
+			<nav class="blog-nav">
+				<a class="blog-nav-item active" th:href="@{/blog}">Home</a> <a
+					class="blog-nav-item" href="#">O blogu</a> <a class="blog-nav-item"
+					th:href="@{/}">Hlavni sranka</a>
+				<div sec:authorize="! isAuthenticated()" th:remove="tag">
+					<a class="blog-nav-item" th:href="@{/login}">Login</a>
+					<a class="blog-nav-item" th:href="@{/register}">Register</a>
+				</div>
+				<a class="blog-nav-item" th:href="@{/logout}"
+					sec:authorize="isAuthenticated()">Logout</a>
+			</nav>
+		</div>
+	</div>
+</div>
+
+</html>

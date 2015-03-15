@@ -1,0 +1,18 @@
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="page">
+
+<head th:replace="home/fragments/headTag :: headTag"></head>
+
+<body role="document">
+	<div th:include="home/fragments/bodyHeader :: bodyHeader"
+		th:remove="tag"></div>
+
+	<div class="container" role="main">
+
+		<div class="jumbotron" th:include="this :: content"></div>
+
+		<footer th:include="home/fragments/footerTag :: footerTag"></footer>
+	</div>
+
+</body>
+
+</html>

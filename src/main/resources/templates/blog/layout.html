@@ -1,0 +1,42 @@
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="page">
+
+<head th:replace="blog/fragments/headTag :: headTag"></head>
+
+<body role="document">
+	<div th:include="blog/fragments/bodyHeader :: bodyHeader"
+		th:remove="tag"></div>
+
+	<div class="container">
+
+		<div class="blog-header">
+			<h1 class="blog-title">Fugiczek Blog</h1>
+			<p class="lead blog-description">Nejaky psani od demonu a
+				parku...</p>
+		</div>
+
+		<div class="alert alert-success" th:if="${success eq true}">Registration
+			successful! You can login now.</div>
+			
+		<div class="col-sm-8 blog-main" th:include="this :: content"></div>
+
+		<div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+			<div class="sidebar-module sidebar-module-inset">
+				<h4>O mne</h4>
+				<p>Tady napisu neco peknyho o sobe a budu to nacitat z DB :))))</p>
+			</div>
+			<div class="sidebar-module">
+				<h4>Archiv(nefunguje to)</h4>
+				<ol class="list-unstyled">
+					<li><a href="#">February 2015</a></li>
+					<li><a href="#">January 2015</a></li>
+				</ol>
+			</div>
+		</div>
+
+	</div>
+
+	<div th:include="blog/fragments/footerTag :: footerTag" th:remove="tag"></div>
+
+</body>
+
+</html>
