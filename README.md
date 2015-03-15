@@ -1,8 +1,7 @@
 # maturita
 web k maturite
 
-Online test (Commit Mar 10): https://fugiczek.herokuapp.com/
-/admin/blog and /blog are broken :(
+Online test (Commit Mar 15): https://fugiczek.herokuapp.com/
 
 Plans:
 - Improve error handling
