@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import eu.fugiczek.maturita.domain.BlogPost;
+import eu.fugiczek.maturita.domain.exception.BlogPostNotFoundException;
 import eu.fugiczek.maturita.model.service.BlogPostService;
 import eu.fugiczek.maturita.web.controller.util.PageWrapper;
 
@@ -32,8 +33,10 @@ public class BlogController {
 	}
 	
 	@RequestMapping("/show/{id:[\\d]+}")
-	public String show(@PathVariable int id, Model model) {
-		model.addAttribute("post", blogPostService.findOne(id));
+	public String show(@PathVariable int id, Model model) throws BlogPostNotFoundException {
+		BlogPost blogPost = blogPostService.findOne(id);
+		if(blogPost == null) throw new BlogPostNotFoundException(id);
+		model.addAttribute("post", blogPost);
 		return "blog/post";
 	}
 	

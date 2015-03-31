@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+	th:include="admin/layout :: page">
+<body>
+	<div th:fragment="content">
+		<h1 class="page-header">Error</h1>
+		<p th:if="${not (statusCode eq null)}" th:text="'Status code: ' + ${statusCode}"></p>
+		<p th:if="${not (uri eq null)}" th:text="'URI: ' + ${uri}"></p>
+		<p th:if="${not (ex eq null)}" th:text="'Exception Message: ' + ${ex.message}"></p>
+	</div>
+</body>
+</html>
