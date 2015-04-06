@@ -19,27 +19,27 @@ import org.hibernate.annotations.Type;
 
 @Entity
 public class BlogPost {
-	
+
 	@Id
 	@GeneratedValue
 	private Integer id;
-	
-	@Size(min=1, message="Title must be at least 1 character!")
+
+	@Size(min = 1, message = "Title must be at least 1 character!")
 	@Column(length = 1000)
 	private String title;
-	
+
 	private LocalDateTime publishedDate;
-	
-	@Size(min=50, message="Text must be at least 50 characters!")
+
+	@Size(min = 50, message = "Text must be at least 50 characters!")
 	@Lob
 	@Type(type = "org.hibernate.type.StringClobType")
 	@Column(length = Integer.MAX_VALUE)
 	private String text;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
-	
+
 	@OneToMany(mappedBy = "blogPost", cascade = CascadeType.REMOVE)
 	private List<Comment> comments;
 
@@ -47,7 +47,7 @@ public class BlogPost {
 	void publishedDate() {
 		publishedDate = LocalDateTime.now();
 	}
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -91,5 +91,5 @@ public class BlogPost {
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
-	
+
 }

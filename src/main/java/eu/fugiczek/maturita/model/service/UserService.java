@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import eu.fugiczek.maturita.domain.User;
 import eu.fugiczek.maturita.domain.Role;
+import eu.fugiczek.maturita.domain.exception.UserNotFoundException;
 import eu.fugiczek.maturita.model.repository.RoleRepository;
 import eu.fugiczek.maturita.model.repository.UserRepository;
 
@@ -39,8 +40,33 @@ public class UserService {
 		userRepository.save(user);
 	}
 
+	public void update(int id, User user) {
+		User original = findOne(id);
+		if(original == null) throw new UserNotFoundException(id);
+		
+		if(!user.getName().trim().isEmpty()) {
+			original.setName(user.getName());
+		}
+		if(!user.getEmail().trim().isEmpty()) {
+			original.setEmail(user.getEmail());
+		}
+		if(!user.getPassword().trim().isEmpty()) {
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			original.setPassword(encoder.encode(user.getPassword()));
+		}
+		
+		userRepository.save(original);
+	}
+	
 	public User findOne(String username) {
 		return userRepository.findByName(username);
 	}
 	
+	public User findOneByEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
+	
+	public User findOne(int id) {
+		return userRepository.findOne(id);
+	}
 }

@@ -27,13 +27,13 @@ public class RegisterController {
 		return new User();
 	}
 
-	@RequestMapping
+	@RequestMapping(method = RequestMethod.GET)
 	public String register() {
 		return "register";
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String doRegister(@Valid @ModelAttribute("user") User user,
+	public String register(@Valid @ModelAttribute("user") User user,
 			BindingResult result, RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
 			return "register";
@@ -43,10 +43,17 @@ public class RegisterController {
 		return "redirect:/blog";
 	}
 
-	@RequestMapping("/available")
+	@RequestMapping("/available/username")
 	@ResponseBody
-	public String available(@RequestParam String username) {
+	public String availableUsername(@RequestParam String username) {
 		Boolean available = userService.findOne(username) == null;
+		return available.toString();
+	}
+	
+	@RequestMapping("/available/email")
+	@ResponseBody
+	public String availableEmail(@RequestParam String email) {
+		Boolean available = userService.findOneByEmail(email) == null;
 		return available.toString();
 	}
 }

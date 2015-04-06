@@ -25,10 +25,10 @@ public class MyMappingExceptionResolver extends
 	}
 	
 	public static String resolveErrorLocation(String url) {
-		if(url.contains("/blog")) {
-			return ERROR_VIEW_BLOG;
-		} else if(url.contains("/admin")) {
+		if(url.contains("/admin")) {
 			return ERROR_VIEW_ADMIN;
+		} else if(url.contains("/blog")) {
+			return ERROR_VIEW_BLOG;
 		} else {
 			return ERROR_VIEW_HOME;
 		}

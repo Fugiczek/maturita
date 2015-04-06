@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+	th:include="admin/layout :: page">
+<body>
+	<div th:fragment="content">
+		<h1 class="page-header">Edit user</h1>
+
+		<div th:if="${success eq false}" class="alert alert-danger">User
+			was NOT edited. Something went wrong.</div>
+
+		<form th:action="@{'/admin/user/update/' + ${user.id}}"
+			th:object="${user}" method="post" class="form-horizontal editForm">
+
+			<div class="form-group">
+				<label for="name" class="col-sm-2 control-label">Name:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" th:field="*{name}" />
+					<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Incorrect
+						name</p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="email" class="col-sm-2 control-label">Email:</label>
+				<div class="col-sm-10">
+					<input type="email" class="form-control" th:field="*{email}" />
+					<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Incorrect
+						email</p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="password" class="col-sm-2 control-label">Password:</label>
+				<div class="col-sm-10">
+					<input type="password" class="form-control" th:field="*{password}" />
+					<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Incorrect
+						password</p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="password_again" class="col-sm-2 control-label">Password
+					Again:</label>
+				<div class="col-sm-10">
+					<input type="password" name="password_again" class="form-control" />
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-10">
+					<input type="submit" value="Save" class="btn btn-lg btn-primary" />
+				</div>
+			</div>
+		</form>
+		<script th:inline="javascript" type="text/javascript">
+			$(document)
+					.ready(
+							function() {
+								$('.editForm')
+										.validate(
+												{
+													rules : {
+														name : {
+															minlength : 3,
+															remote : {
+																url : "/register/available/username",
+																type : "get",
+																data : {
+																	username : function() {
+																		if($('#name').val() === [[${user.name}]]) {
+																			return '';
+																		} else {
+																			return $('#name').val();
+																		}
+																	}
+																}
+															}
+														},
+														email : {
+															email : true,
+															remote : {
+																url : "/register/available/email",
+																type : "get",
+																data : {
+																	email : function() {
+																		if($('#email').val() === [[${user.email}]]) {
+																			return '';
+																		} else {
+																			return $('#email').val();
+																		}
+																	}
+																}
+															}
+														},
+														password : {
+															minlength : 5
+														},
+														password_again : {
+															required : function(
+																	element) {
+																if ($("#password").val().length > 0) {
+																	return true;
+																} else {
+																	return false;
+																}
+															},
+															minlength : 5,
+															equalTo : "#password"
+														}
+													},
+													highlight : function(
+															element) {
+														$(element)
+																.closest(
+																		'.form-group')
+																.removeClass(
+																		'has-success')
+																.addClass(
+																		'has-error');
+													},
+													unhighlight : function(
+															element) {
+														$(element)
+																.closest(
+																		'.form-group')
+																.removeClass(
+																		'has-error')
+																.addClass(
+																		'has-success');
+													},
+													messages : {
+														name : {
+															remote : "Such username already exists!"
+														},
+														email : {
+															remote : "Such email is already used!"
+														}
+													}
+												});
+							});
+		</script>
+	</div>
+</body>
+</html>

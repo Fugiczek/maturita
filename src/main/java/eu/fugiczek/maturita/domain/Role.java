@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import eu.fugiczek.maturita.domain.User;
 
 @Entity
@@ -15,6 +17,7 @@ public class Role {
 	@GeneratedValue
 	private Integer id;
 	
+	@NotBlank
 	private String name;
 
 	@ManyToMany(mappedBy = "roles")

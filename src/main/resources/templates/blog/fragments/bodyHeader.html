@@ -3,21 +3,40 @@
 	lang="en">
 
 <div th:fragment="bodyHeader">
-	<div class="blog-masthead">
-		<div class="container">
-			<nav class="blog-nav">
-				<a class="blog-nav-item active" th:href="@{/blog}">Home</a> <a
-					class="blog-nav-item" href="#">O blogu</a> <a class="blog-nav-item"
-					th:href="@{/}">Hlavni sranka</a>
-				<div sec:authorize="! isAuthenticated()" th:remove="tag">
-					<a class="blog-nav-item" th:href="@{/login}">Login</a>
-					<a class="blog-nav-item" th:href="@{/register}">Register</a>
-				</div>
-				<a class="blog-nav-item" th:href="@{/logout}"
-					sec:authorize="isAuthenticated()">Logout</a>
-			</nav>
-		</div>
-	</div>
+	<!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" th:href="@{/blog}">Fugiczek blog</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a th:href="@{/}">Hlavni Stranka</a>
+                    </li>
+                    <li sec:authorize="! isAuthenticated()">
+                        <a th:href="@{/login}">Login</a>
+                    </li>
+                    <li sec:authorize="! isAuthenticated()">
+                        <a th:href="@{/register}">Register</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()">
+                        <a th:href="@{/logout}">Logout</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
 </div>
 
 </html>

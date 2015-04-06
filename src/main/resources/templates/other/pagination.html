@@ -25,13 +25,13 @@
 
 <div th:fragment="pagination_blog">
 	<ul class='pager'>
-		<li th:class="${page.hasPreviousPage()}? '' : 'disabled'"><span
+		<li th:class="${page.hasPreviousPage()}? 'previous' : 'previous disabled'"><span
 			th:if="${not page.hasPreviousPage()}">«</span> <a
 			th:if="${page.hasPreviousPage()}"
 			th:href="@{${page.url} + '/' + ${page.number - 1}}"
 			title="Go to previous page">«</a></li>
 
-		<li th:class="${page.hasNextPage()}? '' : 'disabled'"><span
+		<li th:class="${page.hasNextPage()}? 'next' : 'next disabled'"><span
 			th:if="${not page.hasNextPage()}">»</span> <a
 			th:if="${page.hasNextPage()}"
 			th:href="@{${page.url} + '/' + ${page.number + 1}}"

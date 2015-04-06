@@ -25,10 +25,9 @@
 
 <body>
 	<div class="container">
-
-		<div th:if="${loginError}">Wrong user or password</div>
 		<form class="form-signin" th:action="@{/login}" method="post">
 			<h2 class="form-signin-heading">Please sign in</h2>
+			<div class="alert alert-danger" th:if="${loginError}">Wrong username or password</div>
 			<input type="text" id="username" name="username" class="form-control" placeholder="Name" autofocus="autofocus" required="required"/> <br /> 
 			<input type="password" id="password" name="password" placeholder="Password" class="form-control" required="required"/> <br />
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>

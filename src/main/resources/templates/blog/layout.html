@@ -2,40 +2,53 @@
 
 <head th:replace="blog/fragments/headTag :: headTag"></head>
 
-<body role="document">
+<body>
 	<div th:include="blog/fragments/bodyHeader :: bodyHeader"
 		th:remove="tag"></div>
 
 	<div class="container">
 
-		<div class="blog-header">
-			<h1 class="blog-title">Fugiczek Blog</h1>
-			<p class="lead blog-description">Nejaky psani od demonu a
-				parku...</p>
-		</div>
+		<div class="row">
+			<div class="alert alert-success" th:if="${success eq true}">Registration
+				successful! You can <a th:href="@{/login}">Log In</a> now.</div>
 
-		<div class="alert alert-success" th:if="${success eq true}">Registration
-			successful! You can login now.</div>
+			<!-- Content -->
+			<div th:include="this :: content" th:remove="tag"></div>
 			
-		<div class="col-sm-8 blog-main" th:include="this :: content"></div>
+			<!-- Blog Sidebar Widgets Column -->
+			<div class="col-md-4">
 
-		<div class="col-sm-3 col-sm-offset-1 blog-sidebar">
-			<div class="sidebar-module sidebar-module-inset">
-				<h4>O mne</h4>
-				<p>Tady napisu neco peknyho o sobe a budu to nacitat z DB :))))</p>
+				<!-- Blog Search Well -->
+				<div class="well">
+					<h4>Blog Search</h4>
+					<div class="input-group">
+						<input type="text" class="form-control" /> <span
+							class="input-group-btn">
+							<button class="btn btn-default" type="button">
+								<span class="glyphicon glyphicon-search"></span>
+							</button>
+						</span>
+					</div>
+					<!-- /.input-group -->
+				</div>
+
+				<!-- Side Widget Well -->
+				<div class="well">
+					<h4>Random Quote</h4>
+					<p>Musim udelat v DB :(</p>
+				</div>
+
 			</div>
-			<div class="sidebar-module">
-				<h4>Archiv(nefunguje to)</h4>
-				<ol class="list-unstyled">
-					<li><a href="#">February 2015</a></li>
-					<li><a href="#">January 2015</a></li>
-				</ol>
-			</div>
+
 		</div>
+		<!-- /.row -->
+
+		<hr />
+
+		<div th:include="blog/fragments/footerTag :: footerTag"
+			th:remove="tag"></div>
 
 	</div>
-
-	<div th:include="blog/fragments/footerTag :: footerTag" th:remove="tag"></div>
 
 </body>
 

@@ -87,7 +87,7 @@
 							required: true,
 							minlength: 3,
 							remote: {
-								url: "/register/available",
+								url: "/register/available/username",
 								type: "get",
 								data: {
 									username: function() {
@@ -98,7 +98,16 @@
 						},
 						email: {
 							required: true,
-							email: true
+							email: true,
+							remote: {
+								url: "/register/available/email",
+								type: "get",
+								data: {
+									email: function() {
+										return $('#email').val();
+									}
+								}
+							}
 						},
 						password: {
 							required: true,
@@ -119,6 +128,9 @@
 					messages: {
 						name: {
 							remote: "Such username already exists!"
+						},
+						email: {
+							remote: "Such email is already used!"
 						}
 					}
 				}		

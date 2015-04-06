@@ -15,6 +15,7 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 
+import eu.fugiczek.maturita.domain.validation.UniqueEmail;
 import eu.fugiczek.maturita.domain.validation.UniqueUsername;
 
 @Entity
@@ -23,18 +24,21 @@ public class User {
 
 	@Id
 	@GeneratedValue
+	@Column(nullable = false, updatable = false)
 	private Integer id;
 	
 	@Size(min = 3, message = "Name must be at least 3 characters!")
-	@Column(unique = true)
+	@Column(nullable = false, unique = true)
 	@UniqueUsername(message = "Such username already exists!")
 	private String name;
 	
-	@Size(min = 1, message = "Invalid email address!")
 	@Email(message = "Invalid email address!")
+	@Column(nullable = false, unique = true)
+	@UniqueEmail(message = "Such email is already used")
 	private String email;
 	
 	@Size(min = 5, message = "Password must be at least 5 characters!")
+	@Column(nullable = false)
 	private String password;
 	
 	private boolean enabled;

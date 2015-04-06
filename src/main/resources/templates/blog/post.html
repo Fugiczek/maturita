@@ -1,15 +1,105 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
 	th:include="blog/layout :: page">
 <body>
 	<div th:fragment="content">
-		<div class="blog-post">
-			<h2 class="blog-post-title" th:text="${post.title}">
-			</h2>
-			<p class="blog-post-meta" th:text="${#temporals.format(post.publishedDate, 'dd/MMM/yyyy HH:mm')} + ' by ' + ${post.user.name}">
-			</p>
+		<div class="col-lg-8">
+
+			<!-- Blog Post -->
+
+			<!-- Title -->
+			<h1 th:text="${post.title}"></h1>
+
+			<!-- Author -->
+			<p class="lead" th:text="'by ' + ${post.user.name}"></p>
+
+			<hr />
+
+			<!-- Date/Time -->
+			<p>
+				<span class="glyphicon glyphicon-time"></span>
+			<p
+				th:text="${#temporals.format(post.publishedDate, 'dd/MMM/yyyy HH:mm')}"
+				th:remove="tag"></p></p>
+
+
+			<hr />
+
+			<!-- Preview Image -->
+			<img class="img-responsive" src="http://placehold.it/900x300" alt="" />
+
+			<hr />
+
+			<!-- Post Content -->
 			<p th:text="${post.text}"></p>
+
+			<hr />
+
+			<!-- Blog Comments -->
+
+			<!-- Comments Form -->
+			<div class="well">
+				<h4>Leave a Comment:</h4>
+				<form sec:authorize="isAuthenticated()" role="form" th:object="${comment}"
+					th:action="@{'/blog/comment/' + ${post.id}}" method="post"
+					class="commentForm">
+					<div class="form-group">
+						<textarea class="form-control" rows="3" th:field="*{text}"></textarea>
+						<p th:if="${#fields.hasErrors('text')}" th:errors="*{text}">Text
+							must be 3 - 1000 characters long!</p>
+					</div>
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</form>
+				<p sec:authorize="! isAuthenticated()" class="alert alert-warning"><a th:href="@{/login}">Log In</a> to comment!</p>
+			</div>
+
+			<script type="text/javascript">
+		$(document).ready(
+			function() {
+			    $('.commentForm').validate(
+				    {
+					rules : {
+					    text : {
+						required : true,
+						minlength : 3,
+						maxlength : 1000
+					    }
+					},
+					highlight : function(element) {
+					    $(element).closest('.form-group')
+						    .removeClass('has-success')
+						    .addClass('has-error');
+					},
+					unhighlight : function(element) {
+					    $(element).closest('.form-group')
+						    .removeClass('has-error')
+						    .addClass('has-success');
+					}
+				    });
+			});
+	    </script>
+
+			<hr />
+
+			<!-- Posted Comments -->
+
+			<!-- Comment -->
+			<div class="media" th:each="comment : ${post.comments}">
+				<a class="pull-left"> <img class="media-object"
+					src="http://placehold.it/64x64" alt="" />
+				</a>
+				<div class="media-body">
+					<div class="media-heading">
+						<h4 th:text="${comment.user.name}"></h4>
+						<small
+							th:text="${#temporals.format(comment.publishedDate, 'dd/MMM/yyyy HH:mm')}"></small>
+					</div>
+
+					<p th:text="${comment.text}"></p>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>

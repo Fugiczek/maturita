@@ -4,18 +4,37 @@
 	th:include="blog/layout :: page">
 <body>
 	<div th:fragment="content">
-		<div class="blog-post" th:each="post : ${page.content}">
-			<h2 class="blog-post-title">
-				<a th:href="@{/blog/show/} + ${post.id}" th:text="${post.title}">
-				</a>
-			</h2>
-			<p class="blog-post-meta" 
-			th:text="${#temporals.format(post.publishedDate, 'dd/MMM/yyyy HH:mm')} + ' by ' + ${post.user.name}">
-			</p>
-			<p th:text="${post.text}"></p>
-		</div>
+		<div class="col-md-8">
+			<h1 class="page-header">
+				Fugiczek ma hlad <small>Srandicky</small>
+			</h1>
 
-		<div th:include="other/pagination :: pagination_blog" th:remove="tag"></div>
+			<div th:each="post : ${page.content}" th:remove="tag">
+				<h2>
+					<a th:href="@{/blog/show/} + ${post.id}" th:text="${post.title}">
+					</a>
+				</h2>
+				<p class="lead" th:text="'by ' + ${post.user.name}"></p>
+				<p>
+					<span class="glyphicon glyphicon-time"></span>
+				<p
+					th:text="${#temporals.format(post.publishedDate, 'dd/MMM/yyyy HH:mm')}"
+					th:remove="tag"></p></p>
+				<hr />
+				<img class="img-responsive" src="http://placehold.it/900x300" alt="" />
+				<hr />
+				<p th:text="${post.text}"></p>
+				<a class="btn btn-primary" th:href="@{/blog/show/} + ${post.id}">Read
+					More <span class="glyphicon glyphicon-chevron-right"></span>
+				</a>
+
+				<hr />
+			</div>
+
+
+			<!-- Pager -->
+			<div th:include="other/pagination :: pagination_blog" th:remove="tag"></div>
+		</div>
 	</div>
 </body>
 </html>

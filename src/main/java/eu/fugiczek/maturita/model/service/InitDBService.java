@@ -11,9 +11,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import eu.fugiczek.maturita.domain.BlogPost;
+import eu.fugiczek.maturita.domain.Comment;
 import eu.fugiczek.maturita.domain.Role;
 import eu.fugiczek.maturita.domain.User;
 import eu.fugiczek.maturita.model.repository.BlogPostRepository;
+import eu.fugiczek.maturita.model.repository.CommentRepository;
 import eu.fugiczek.maturita.model.repository.RoleRepository;
 import eu.fugiczek.maturita.model.repository.UserRepository;
 
@@ -29,6 +31,9 @@ public class InitDBService {
 	
 	@Autowired
 	private BlogPostRepository blogPostRepository;
+	
+	@Autowired
+	private CommentRepository commentRepository;
 	
 	@PostConstruct
 	public void init() {
@@ -47,6 +52,7 @@ public class InitDBService {
 		User userAdmin = new User();
 		userAdmin.setEnabled(true);
 		userAdmin.setName("admin");
+		userAdmin.setEmail("admin@satani.org");
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		userAdmin.setPassword(encoder.encode("admin"));
 		List<Role> roles = new ArrayList<Role>();
@@ -65,14 +71,30 @@ public class InitDBService {
 		userUser.setRoles(roles);
 		userRepository.save(userUser);
 		
+		List<BlogPost> blogPosts = new ArrayList<>();
 		BlogPost blogPost;
+		Comment comment;
 		
 		for(int i = 0; i < 21; i++) {
 			blogPost = new BlogPost();
 			blogPost.setTitle("Zkouska clanku " + i);
 			blogPost.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. " + i);
 			blogPost.setUser(userAdmin);
+			
 			blogPostRepository.save(blogPost);
+
+			blogPosts.add(blogPost);
+		}
+		
+		for(BlogPost post : blogPosts) {
+			for(int j = 0; j < 3; j++) {
+				comment = new Comment();
+				comment.setBlogPost(post);
+				comment.setUser(userAdmin);
+				comment.setText("Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.");
+				
+				commentRepository.save(comment);
+			}
 		}
 		
 	}

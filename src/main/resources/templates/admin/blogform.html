@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+	th:include="admin/layout :: page">
+<body>
+	<div th:fragment="content">
+		<h1 th:text="${edit} ? 'Edit Post' : 'New Post'" class="page-header"></h1>
+		
+		<div th:if="${success eq false}" th:text="'Blog
+			Post was NOT' + ${edit} ? 'edited':'added' + '. Something went wrong.'" class="alert alert-danger"></div>
+			
+		<form th:object="${blogPost}" th:action="${edit} ? @{'/admin/blog/update/' + ${blogPost.id}} : @{/admin/blog/add}"
+			method="post" class="blogForm">
+			<div class="form-group">
+				<label for="name">Title</label> <input type="text"
+					class="form-control" th:field="*{title}" />
+				<p th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Incorrect
+					title</p>
+			</div>
+			<div class="form-group">
+				<label for="text">Text</label>
+				<textarea th:field="*{text}" class="form-control"></textarea>
+				<p th:if="${#fields.hasErrors('text')}" th:errors="*{text}">Incorrect
+					text</p>
+			</div>
+			<div class="form-group">
+				<input type="submit" class="btn btn-primary" value="Save" />
+			</div>
+		</form>
+
+		<script type="text/javascript">
+			$(document).ready(
+					function() {
+						$('.blogForm').validate(
+								{
+									rules : {
+										title : {
+											required : true,
+											minlength : 1
+										},
+										text : {
+											required : true,
+											minlength : 50
+										}
+									},
+									highlight : function(element) {
+										$(element).closest('.form-group')
+												.removeClass('has-success')
+												.addClass('has-error');
+									},
+									unhighlight : function(element) {
+										$(element).closest('.form-group')
+												.removeClass('has-error')
+												.addClass('has-success');
+									}
+								});
+					});
+		</script>
+	</div>
+</body>
+</html>

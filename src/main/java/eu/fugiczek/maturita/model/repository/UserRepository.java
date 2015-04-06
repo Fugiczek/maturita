@@ -7,5 +7,7 @@ import eu.fugiczek.maturita.domain.User;
 public interface UserRepository extends JpaRepository<User, Integer>{
 
 	User findByName(String username);
+	
+	User findByEmail(String email);
 
 }
