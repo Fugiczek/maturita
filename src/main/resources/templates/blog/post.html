@@ -33,7 +33,7 @@
 			<hr />
 
 			<!-- Post Content -->
-			<p th:text="${post.text}"></p>
+			<p th:utext="${post.text}"></p>
 
 			<hr />
 
@@ -42,7 +42,7 @@
 			<!-- Comments Form -->
 			<div class="well">
 				<h4>Leave a Comment:</h4>
-				<form sec:authorize="isAuthenticated()" role="form" th:object="${comment}"
+				<form sec:authorize="isAuthenticated()" th:if="${post.commentable}" role="form" th:object="${comment}"
 					th:action="@{'/blog/comment/' + ${post.id}}" method="post"
 					class="commentForm">
 					<div class="form-group">
@@ -53,6 +53,7 @@
 					<button type="submit" class="btn btn-primary">Submit</button>
 				</form>
 				<p sec:authorize="! isAuthenticated()" class="alert alert-warning"><a th:href="@{/login}">Log In</a> to comment!</p>
+				<p sec:authorize="isAuthenticated()" th:if="${!post.commentable}" class="alert alert-danger">Comments for this post are disabled!</p>
 			</div>
 
 			<script type="text/javascript">

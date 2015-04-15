@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+	th:include="admin/layout :: page">
+<body>
+	<div th:fragment="content">
+		<h1 class="page-header">Quote</h1>
+
+		<div th:if="${success eq true}" class="alert alert-success">Quote was added successfully.</div>
+
+		<a th:href="@{/admin/quote/add}" class="btn btn-primary btn-lg">
+			New Quote </a>
+
+		<h2 class="sub-header">List of Quotes</h2>
+
+		<div class="table-responsive">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Text</th>
+						<th>Operations</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="quote : ${page.content}">
+						<td th:text="${quote.text}"></td>
+						<td><a th:href="@{'/admin/quote/update/'+${quote.id}}"
+							class="btn btn-warning"> Edit Quote </a> <a
+							th:href="@{'/admin/quote/remove/'+${quote.id}}"
+							class="btn btn-danger triggerRemove"> Remove Quote </a></td>
+					</tr>
+				</tbody>
+			</table>
+			<div th:include="other/pagination :: pagination" th:remove="tag"></div>
+		</div>
+	</div>
+</body>
+</html>

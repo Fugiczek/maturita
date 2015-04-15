@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import eu.fugiczek.maturita.domain.User;
 import eu.fugiczek.maturita.domain.Role;
@@ -55,6 +56,8 @@ public class UserService {
 			original.setPassword(encoder.encode(user.getPassword()));
 		}
 		
+		original.setEnabled(user.isEnabled());
+		
 		userRepository.save(original);
 	}
 	
@@ -68,5 +71,10 @@ public class UserService {
 	
 	public User findOne(int id) {
 		return userRepository.findOne(id);
+	}
+
+	@Transactional
+	public void enableUser(boolean b, int id) {
+		userRepository.enableUser(b, id);
 	}
 }

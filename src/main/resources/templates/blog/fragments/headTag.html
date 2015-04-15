@@ -7,7 +7,7 @@
 <meta name="description" content="Fugiczek's blog" />
 <meta name="author" content="Fugiczek" />
 
-<title>Fugiczek Blog</title>
+<title th:text="'Fugiczek Blog' + (${post != null} ? ' - ' + ${post.title}  : '')"></title>
 
 <link
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"

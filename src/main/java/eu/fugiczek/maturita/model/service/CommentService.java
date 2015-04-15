@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import eu.fugiczek.maturita.domain.BlogPost;
 import eu.fugiczek.maturita.domain.Comment;
 import eu.fugiczek.maturita.domain.User;
+import eu.fugiczek.maturita.domain.exception.BlogPostNotCommentableException;
 import eu.fugiczek.maturita.domain.exception.BlogPostNotFoundException;
 import eu.fugiczek.maturita.model.repository.BlogPostRepository;
 import eu.fugiczek.maturita.model.repository.CommentRepository;
@@ -27,6 +28,9 @@ public class CommentService {
 		BlogPost blogPost = blogPostRepository.findOne(id);
 		if (blogPost == null) {
 			throw new BlogPostNotFoundException(id);
+		}
+		if (!blogPost.isCommentable()) {
+			throw new BlogPostNotCommentableException(id);
 		}
 		User user = userRepository.findByName(name);
 		comment.setBlogPost(blogPost);

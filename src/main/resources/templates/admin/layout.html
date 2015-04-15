@@ -11,11 +11,17 @@
 			<div class="col-sm-3 col-md-2 sidebar">
 				<ul class="nav nav-sidebar">
 					<li
-						th:class="${(#httpServletRequest.requestURL.toString().contains('users')) ? 'active' : ''}"><a
-						th:href="@{/admin/users}">Users</a></li>
+						th:class="${(#httpServletRequest.requestURL.toString().contains('user')) ? 'active' : ''}"><a
+						th:href="@{/admin/user}">Users</a></li>
 					<li
 						th:class="${(#httpServletRequest.requestURL.toString().contains('blog')) ? 'active' : ''}"><a
 						th:href="@{/admin/blog}">Blog</a></li>
+					<li
+						th:class="${(#httpServletRequest.requestURL.toString().contains('quote')) ? 'active' : ''}"><a
+						th:href="@{/admin/quote}">Quote</a></li>
+						<li
+						th:class="${(#httpServletRequest.requestURL.toString().contains('contact')) ? 'active' : ''}"><a
+						th:href="@{/admin/contact}">Contact</a></li>
 				</ul>
 			</div>
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">

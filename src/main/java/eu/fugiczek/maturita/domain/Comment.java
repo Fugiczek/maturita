@@ -19,12 +19,13 @@ public class Comment {
 
 	@Id
 	@GeneratedValue
+	@Column(nullable = false, updatable = false)
 	private Integer id;
 
 	@Size(min = 3, max = 1000, message = "Text must be 3 - 1000 characters long!")
 	@Lob
 	@Type(type = "org.hibernate.type.StringClobType")
-	@Column(length = 1000)
+	@Column(nullable = false, length = 1000)
 	private String text;
 
 	private LocalDateTime publishedDate;

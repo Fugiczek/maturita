@@ -19,11 +19,12 @@
 					<span class="glyphicon glyphicon-time"></span>
 				<p
 					th:text="${#temporals.format(post.publishedDate, 'dd/MMM/yyyy HH:mm')}"
-					th:remove="tag"></p></p>
+					th:remove="tag"></p>
+					</p>
 				<hr />
 				<img class="img-responsive" src="http://placehold.it/900x300" alt="" />
 				<hr />
-				<p th:text="${post.text}"></p>
+				<p th:text="${#strings.substring(post.text,0,(#strings.length(post.text) le 201 ? #strings.length(post.text)-1 : 200))} + ' ...'"></p>
 				<a class="btn btn-primary" th:href="@{/blog/show/} + ${post.id}">Read
 					More <span class="glyphicon glyphicon-chevron-right"></span>
 				</a>

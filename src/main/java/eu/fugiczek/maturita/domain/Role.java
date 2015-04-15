@@ -2,12 +2,13 @@ package eu.fugiczek.maturita.domain;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotBlank;
 
 import eu.fugiczek.maturita.domain.User;
 
@@ -15,9 +16,10 @@ import eu.fugiczek.maturita.domain.User;
 public class Role {
 	@Id
 	@GeneratedValue
+	@Column(nullable = false, updatable = false)
 	private Integer id;
 	
-	@NotBlank
+	@NotNull
 	private String name;
 
 	@ManyToMany(mappedBy = "roles")

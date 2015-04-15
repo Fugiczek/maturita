@@ -30,13 +30,17 @@
 						<td
 							th:text="${#temporals.format(post.publishedDate, 'dd/MMM/yyyy HH:mm')}"></td>
 						<td><a th:href="@{'/admin/blog/update/'+${post.id}}"
-							class="btn btn-warning triggerRemove"> Edit Post </a> <a
+							class="btn btn-warning"> Edit Post </a> <a
 							th:href="@{'/admin/blog/remove/'+${post.id}}"
 							class="btn btn-danger triggerRemove"> Remove Post </a></td>
 					</tr>
 				</tbody>
 			</table>
 			<div th:include="other/pagination :: pagination" th:remove="tag"></div>
+			
+			<h2 class="sub-header">Options</h2>
+			<a th:href="@{/admin/blog/comments/enable}" class="btn btn-success"> Enable comments everywhere </a>
+			<a th:href="@{/admin/blog/comments/disable}" class="btn btn-danger"> Disable comments everywhere </a>
 		</div>
 	</div>
 </body>

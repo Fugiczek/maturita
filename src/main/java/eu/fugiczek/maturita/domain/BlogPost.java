@@ -22,10 +22,11 @@ public class BlogPost {
 
 	@Id
 	@GeneratedValue
+	@Column(nullable = false, updatable = false)
 	private Integer id;
 
 	@Size(min = 1, message = "Title must be at least 1 character!")
-	@Column(length = 1000)
+	@Column(nullable = false, length = 1000)
 	private String title;
 
 	private LocalDateTime publishedDate;
@@ -33,7 +34,7 @@ public class BlogPost {
 	@Size(min = 50, message = "Text must be at least 50 characters!")
 	@Lob
 	@Type(type = "org.hibernate.type.StringClobType")
-	@Column(length = Integer.MAX_VALUE)
+	@Column(nullable = false, length = Integer.MAX_VALUE)
 	private String text;
 
 	@ManyToOne
@@ -43,6 +44,8 @@ public class BlogPost {
 	@OneToMany(mappedBy = "blogPost", cascade = CascadeType.REMOVE)
 	private List<Comment> comments;
 
+	private boolean commentable;
+	
 	@PrePersist
 	void publishedDate() {
 		publishedDate = LocalDateTime.now();
@@ -91,5 +94,12 @@ public class BlogPost {
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
+	
+	public boolean isCommentable() {
+		return commentable;
+	}
 
+	public void setCommentable(boolean commentable) {
+		this.commentable = commentable;
+	}
 }

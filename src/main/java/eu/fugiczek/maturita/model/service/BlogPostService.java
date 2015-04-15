@@ -65,7 +65,13 @@ public class BlogPostService {
 		
 		original.setTitle(blogPost.getTitle());
 		original.setText(blogPost.getText());
+		original.setCommentable(blogPost.isCommentable());
 		
 		blogPostRepository.save(original);
+	}
+	
+	@Transactional
+	public void enableComments(boolean enable) {
+		blogPostRepository.enableComments(enable);
 	}
 }

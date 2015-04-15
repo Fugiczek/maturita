@@ -5,20 +5,21 @@
 <body>
 	<div th:fragment="content">
 		<script type="text/javascript">
-			$(document).ready(
-					function() {
-						$('.triggerRemove').click(
-								function(e) {
-									e.preventDefault();
-									$('#modalRemove .removeBtn').attr("href",
-											$(this).attr("href"));
-									$('#modalRemove').modal();
-								});
-					});
-		</script>
+	    $(document).ready(
+		    function() {
+			$('.triggerRemove').click(
+				function(e) {
+				    e.preventDefault();
+				    $('#modalRemove .removeBtn').attr("href",
+					    $(this).attr("href"));
+				    $('#modalRemove').modal();
+				});
+		    });
+	</script>
 		<h1 class="page-header">Users</h1>
 
-		<div th:if="${success eq true}" class="alert alert-success">User was edited successfully.</div>
+		<div th:if="${success eq true}" class="alert alert-success">User
+			was edited successfully.</div>
 
 		<h2 class="sub-header">List of Users</h2>
 
@@ -36,8 +37,11 @@
 						<td th:text="${user.name}"></td>
 						<td th:text="${user.email}"></td>
 						<td><a th:href="@{'/admin/user/update/'+${user.id}}"
-							class="btn btn-warning"> Edit User </a>
-						<a th:href="@{'/admin/user/remove/'+${user.id}}"
+							class="btn btn-warning"> Edit User </a> <a
+							th:href="@{'/admin/user/' + (${user.enabled} ? 'disable':'enable') + '/'+${user.id}}"
+							class="btn btn-danger"
+							th:text="(${user.enabled} ? 'Disable':'Enable') + ' User'"></a> <a
+							th:href="@{'/admin/user/remove/'+${user.id}}"
 							class="btn btn-danger triggerRemove"> Remove User </a></td>
 					</tr>
 				</tbody>

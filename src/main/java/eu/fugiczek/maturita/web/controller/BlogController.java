@@ -19,6 +19,7 @@ import eu.fugiczek.maturita.domain.Comment;
 import eu.fugiczek.maturita.domain.exception.BlogPostNotFoundException;
 import eu.fugiczek.maturita.model.service.BlogPostService;
 import eu.fugiczek.maturita.model.service.CommentService;
+import eu.fugiczek.maturita.model.service.QuoteService;
 import eu.fugiczek.maturita.web.controller.util.PageWrapper;
 
 @Controller
@@ -31,10 +32,14 @@ public class BlogController {
 	@Autowired
 	private CommentService commentService;
 
+	@Autowired
+	private QuoteService quoteService;
+	
 	@RequestMapping
 	public String show(Model model) {
 		PageWrapper<BlogPost> page = new PageWrapper<>(
 				blogPostService.findAll(0), "/blog");
+		model.addAttribute("quote", quoteService.getRandomQuote());
 		model.addAttribute("page", page);
 		return "blog/index";
 	}
@@ -43,6 +48,7 @@ public class BlogController {
 	public String showPage(@PathVariable Integer currentPage, Model model) {
 		PageWrapper<BlogPost> page = new PageWrapper<>(
 				blogPostService.findAll(currentPage - 1), "/blog");
+		model.addAttribute("quote", quoteService.getRandomQuote());
 		model.addAttribute("page", page);
 		return "blog/index";
 	}
@@ -53,6 +59,7 @@ public class BlogController {
 		BlogPost blogPost = blogPostService.findOneWithComments(id);
 		if (blogPost == null)
 			throw new BlogPostNotFoundException(id);
+		model.addAttribute("quote", quoteService.getRandomQuote());
 		model.addAttribute("post", blogPost);
 		return "blog/post";
 	}
@@ -67,6 +74,7 @@ public class BlogController {
 			BlogPost blogPost = blogPostService.findOneWithComments(id);
 			if (blogPost == null)
 				throw new BlogPostNotFoundException(id);
+			model.addAttribute("quote", quoteService.getRandomQuote());
 			model.addAttribute("post", blogPost);
 
 			return "blog/post";

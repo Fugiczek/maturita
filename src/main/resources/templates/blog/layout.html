@@ -35,7 +35,8 @@
 				<!-- Side Widget Well -->
 				<div class="well">
 					<h4>Random Quote</h4>
-					<p>Musim udelat v DB :(</p>
+					<p th:text="${quote.text}"></p>
+					<p th:text="'-- ' + ${quote.author}"></p>
 				</div>
 
 			</div>

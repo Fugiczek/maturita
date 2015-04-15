@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+	th:include="admin/layout :: page">
+<body>
+	<div th:fragment="content">
+		<h1 class="page-header">Contact</h1>
+
+		<div th:if="${success eq true}" class="alert alert-success">Reply was sent successfully.</div>
+
+		<h2 class="sub-header">List of Inquiries</h2>
+
+		<div class="table-responsive">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Text</th>
+						<th>Published</th>
+						<th>Operations</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="msg : ${page.content}">
+						<td th:text="${#strings.substring(msg.text,0,(#strings.length(msg.text) le 201 ? #strings.length(msg.text)-1 : 200))} + ' ...'"></td>
+						<td
+							th:text="${#temporals.format(msg.publishedDate, 'dd/MMM/yyyy HH:mm')}"></td>
+						<td><a th:href="@{'/admin/contact/reply/'+${msg.id}}"
+							class="btn btn-success"> Reply </a></td>
+					</tr>
+				</tbody>
+			</table>
+			<div th:include="other/pagination :: pagination" th:remove="tag"></div>
+		</div>
+	</div>
+</body>
+</html>
