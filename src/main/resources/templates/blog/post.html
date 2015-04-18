@@ -27,11 +27,6 @@
 
 			<hr />
 
-			<!-- Preview Image -->
-			<img class="img-responsive" src="http://placehold.it/900x300" alt="" />
-
-			<hr />
-
 			<!-- Post Content -->
 			<p th:utext="${post.text}"></p>
 
@@ -96,6 +91,7 @@
 						<h4 th:text="${comment.user.name}"></h4>
 						<small
 							th:text="${#temporals.format(comment.publishedDate, 'dd/MMM/yyyy HH:mm')}"></small>
+							<small sec:authorize="hasRole('ADMIN')"><a th:href="@{'/blog/comment/delete/' + ${comment.id}}">Delete</a></small>
 					</div>
 
 					<p th:text="${comment.text}"></p>

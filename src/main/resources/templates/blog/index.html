@@ -6,7 +6,7 @@
 	<div th:fragment="content">
 		<div class="col-md-8">
 			<h1 class="page-header">
-				Fugiczek ma hlad <small>Srandicky</small>
+				Some interesting posts <small>boring...</small>
 			</h1>
 
 			<div th:each="post : ${page.content}" th:remove="tag">
@@ -21,8 +21,6 @@
 					th:text="${#temporals.format(post.publishedDate, 'dd/MMM/yyyy HH:mm')}"
 					th:remove="tag"></p>
 					</p>
-				<hr />
-				<img class="img-responsive" src="http://placehold.it/900x300" alt="" />
 				<hr />
 				<p th:text="${#strings.substring(post.text,0,(#strings.length(post.text) le 201 ? #strings.length(post.text)-1 : 200))} + ' ...'"></p>
 				<a class="btn btn-primary" th:href="@{/blog/show/} + ${post.id}">Read

@@ -37,7 +37,7 @@ public class CommentService {
 		comment.setUser(user);
 		
 		/*
-		 * it fixes bug
+		 * lazy bug fix
 		 * when InitDBService is filling up comments
 		 * Comment in the controller has the ID of the BlogPost
 		 */
@@ -46,4 +46,8 @@ public class CommentService {
 		commentRepository.save(comment);
 	}
 
+	public void delete(int id) {
+		commentRepository.delete(id);
+	}
+	
 }

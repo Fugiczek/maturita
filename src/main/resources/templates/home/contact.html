@@ -12,17 +12,15 @@
 			<div class="form-group">
 				<label for="sender">Your Email</label> <input type="email"
 					class="form-control" th:field="*{sender}" />
-				<p th:if="${#fields.hasErrors('sender')}" th:errors="*{sender}">Incorrect
-					email</p>
+				<p th:if="${#fields.hasErrors('sender')}" th:errors="*{sender}"></p>
 			</div>
 			<div class="form-group">
 				<label for="text">Text</label>
 				<textarea th:field="*{text}" class="form-control"></textarea>
-				<p th:if="${#fields.hasErrors('text')}" th:errors="*{text}">Incorrect
-					text</p>
+				<p th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></p>
 			</div>
 			<div class="form-group">
-				<input type="submit" class="btn btn-primary" value="Save" />
+				<input type="submit" class="btn btn-primary" value="Send" />
 			</div>
 		</form>
 

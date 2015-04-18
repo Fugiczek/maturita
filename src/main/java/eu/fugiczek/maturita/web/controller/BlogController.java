@@ -2,6 +2,7 @@ package eu.fugiczek.maturita.web.controller;
 
 import java.security.Principal;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,6 +87,15 @@ public class BlogController {
 		return "redirect:/blog/show/" + id;
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
+	@RequestMapping("/comment/delete/{id:[\\d]+}")
+	public String deleteComment(@PathVariable int id, HttpServletRequest request) {
+		commentService.delete(id);
+		
+		String referer = request.getHeader("Referer");
+	    return "redirect:"+ referer;
+	}
+	
 	@ModelAttribute("comment")
 	public Comment constructComment() {
 		return new Comment();

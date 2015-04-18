@@ -57,7 +57,7 @@ public class InitDBService {
 		User userAdmin = new User();
 		userAdmin.setEnabled(true);
 		userAdmin.setName("admin");
-		userAdmin.setEmail("admin@satani.org");
+		userAdmin.setEmail("admin@test.org");
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		userAdmin.setPassword(encoder.encode("admin"));
 		List<Role> roles = new ArrayList<Role>();
@@ -68,9 +68,9 @@ public class InitDBService {
 		
 		User userUser = new User();
 		userUser.setEnabled(true);
-		userUser.setName("User");
+		userUser.setName("user");
 		userUser.setPassword(encoder.encode("user"));
-		userUser.setEmail("parek@satani.org");
+		userUser.setEmail("user@test.org");
 		roles = new ArrayList<Role>();
 		roles.add(roleUser);
 		userUser.setRoles(roles);
@@ -82,8 +82,8 @@ public class InitDBService {
 		
 		for(int i = 0; i < 21; i++) {
 			blogPost = new BlogPost();
-			blogPost.setTitle("Zkouska clanku " + i);
-			blogPost.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. " + i);
+			blogPost.setTitle("Test post " + i);
+			blogPost.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
 			blogPost.setUser(userAdmin);
 			
 			blogPostRepository.save(blogPost);
@@ -104,11 +104,11 @@ public class InitDBService {
 		
 		Quote quote;
 		
-		for(int i = 0; i < 21; i++) {
+		for(int i = 0; i < 5; i++) {
 			quote = new Quote();
 			
-			quote.setAuthor("Bruce Lee");
-			quote.setText(i + " I fear not the man who has practiced 10,000 kicks once, but I fear the man who has practiced one kick 10,000 times.");
+			quote.setAuthor("Test");
+			quote.setText(i + ". quote");
 			
 			quoteRepository.save(quote);
 		}
